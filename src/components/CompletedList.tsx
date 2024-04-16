@@ -20,6 +20,7 @@ const CompletedList: React.FC<PostListProps> = (props) => {
       <h1>Completed Tasks</h1>
       {props.postArr.map((post) => (
         <PostItem
+          myParent="completed"
           key={post.title + props.postArr.indexOf(post)}
           count={props.postArr.indexOf(post) + 1}
           title={post.title}

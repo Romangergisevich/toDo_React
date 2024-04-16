@@ -5,6 +5,7 @@ interface PostState {
   count: number;
   title: string;
   text: string;
+  myParent: string;
   deletePost: (title: string, text: string) => void;
 }
 
@@ -13,6 +14,7 @@ const PostItem: React.FC<PostState> = (props) => {
     count: props.count,
     title: props.title,
     text: props.text,
+    myParent: props.myParent,
     deletePost: props.deletePost,
   });
 
@@ -29,7 +31,9 @@ const PostItem: React.FC<PostState> = (props) => {
         <div className="post__content-text">{state.text}</div>
       </div>
       <div className="post__btns">
-        <DefaultButton className={"doneBtn"}>Done</DefaultButton>
+        {state.myParent == "ToDo" && (
+          <DefaultButton className={"doneBtn"}>Done</DefaultButton>
+        )}
         <DefaultButton
           className={"deleteBtn"}
           onClick={handleDelete}>

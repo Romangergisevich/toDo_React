@@ -20,6 +20,7 @@ const PostList: React.FC<PostListProps> = (props) => {
       <h1>{props.listTitle ? props.listTitle : "Random List Title"}</h1>
       {props.postArr.map((post) => (
         <PostItem
+          myParent="ToDo"
           key={post.title + props.postArr.indexOf(post)}
           count={props.postArr.indexOf(post) + 1}
           title={post.title}
