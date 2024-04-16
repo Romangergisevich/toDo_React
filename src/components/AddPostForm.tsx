@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DefaultButton from "./UI/buttons/DefaultButton";
 
 interface FunctionsProps {
   createPost: (event: React.FormEvent, title: string, text: string) => void;
@@ -10,11 +11,7 @@ const AddPostForm: React.FC<FunctionsProps> = (props) => {
 
   const createNewPost = (event: React.FormEvent) => {
     event.preventDefault();
-    if (postTitle && postText) {
-      props.createPost(event, postTitle, postText);
-    } else {
-      alert("You need to fill text inputs");
-    }
+    if (postTitle && postText) props.createPost(event, postTitle, postText);
   };
 
   const postTitleCreate = (event: React.SyntheticEvent): void => {
@@ -30,25 +27,35 @@ const AddPostForm: React.FC<FunctionsProps> = (props) => {
   };
 
   return (
-    <div className="post-form">
-      <form
-        onSubmit={createNewPost}
-        id="addPostId">
-        <input
-          onInput={postTitleCreate}
-          className="post-form__input"
-          placeholder="Post title"
-          type="search"
-        />
-        <input
-          onInput={postTextCreate}
-          className="post-form__input"
-          placeholder="Post text"
-          type="search"
-        />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+    <>
+      <h1>Create new Task</h1>
+      <div className="post-form">
+        <form
+          onSubmit={createNewPost}
+          id="addPostId">
+          <input
+            required
+            onInput={postTitleCreate}
+            className="post-form__input"
+            placeholder="Post title"
+            type="search"
+          />
+          <textarea
+            required
+            onInput={postTextCreate}
+            className="post-form__input"
+            placeholder="Post text"
+          />
+          <div className="post-form__buttons">
+            <DefaultButton
+              className="submitBtn"
+              ButtonType="submit">
+              Create task
+            </DefaultButton>
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 

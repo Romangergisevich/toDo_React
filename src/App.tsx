@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import "./styles/App.css";
 import PostList from "./components/PostList";
 import AddPostForm from "./components/AddPostForm";
+import { Routes, Route, Link } from "react-router-dom";
+import CompletedList from "./components/CompletedList";
+import classes from "./components/UI/buttons/DefaultButton.module.css";
 
 interface Post {
   title: string;
@@ -24,6 +27,30 @@ const App: React.FC = () => {
     form.reset();
   };
 
+  const deletePost = (title: string, text: string): void => {
+    setPosts((prevState) =>
+      prevState.filter(
+        (p) =>
+          p.title.toLowerCase().split(" ").join() !=
+            title.toLowerCase().split(" ").join() ||
+          p.text.toLowerCase().split(" ").join() !=
+            text.toLowerCase().split(" ").join()
+      )
+    );
+  };
+
+  const deleteComleted = (title: string, text: string): void => {
+    setCompleted((prevState) =>
+      prevState.filter(
+        (p) =>
+          p.title.toLowerCase().split(" ").join() !=
+            title.toLowerCase().split(" ").join() ||
+          p.text.toLowerCase().split(" ").join() !=
+            text.toLowerCase().split(" ").join()
+      )
+    );
+  };
+
   const [posts, setPosts] = useState<Post[]>([
     {
       title: "Javascript",
@@ -33,23 +60,63 @@ const App: React.FC = () => {
       title: "Python",
       text: "Python - programming language",
     },
+  ]);
+
+  const [completed, setCompleted] = useState<Post[]>([
     {
-      title: "PHP",
-      text: "PHP - programming language",
+      title: "Javascript",
+      text: "JS - programming language",
     },
     {
-      title: "C++",
-      text: "C++ - programming language",
+      title: "Python",
+      text: "Python - programming language",
     },
   ]);
 
   return (
     <div className="App">
-      <AddPostForm createPost={createPost} />
-      <PostList
-        postArr={posts}
-        listTitle={"List Title"}
-      />
+      <div className="main-head">
+        <Link
+          className={classes.link}
+          to="/toDoList">
+          ToDo
+        </Link>
+        <Link
+          className={classes.link}
+          to="/comletedTasks">
+          Completed
+        </Link>
+        <Link
+          className={classes.link}
+          to="/newPost">
+          New Post
+        </Link>
+      </div>
+      <Routes>
+        <Route
+          path="/newPost"
+          element={<AddPostForm createPost={createPost} />}
+        />
+        <Route
+          path="/toDoList"
+          element={
+            <PostList
+              postArr={posts}
+              listTitle={"Tasks ToDo"}
+              deletePost={deletePost}
+            />
+          }
+        />
+        <Route
+          path="/comletedTasks"
+          element={
+            <CompletedList
+              postArr={completed}
+              deletePost={deleteComleted}
+            />
+          }
+        />
+      </Routes>
     </div>
   );
 };

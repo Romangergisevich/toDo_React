@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import DefaultButton from "../components/UI/buttons/DefaultButton";
 
 interface PostState {
   count: number;
   title: string;
   text: string;
+  deletePost: (title: string, text: string) => void;
 }
 
 const PostItem: React.FC<PostState> = (props) => {
@@ -11,29 +13,28 @@ const PostItem: React.FC<PostState> = (props) => {
     count: props.count,
     title: props.title,
     text: props.text,
+    deletePost: props.deletePost,
   });
 
-  const plusOne = () => {
-    setState((prevState) => ({
-      ...prevState,
-      count: prevState.count + 1,
-    }));
+  const handleDelete = (): void => {
+    state.deletePost(state.title, state.text);
   };
 
   return (
     <div className="post">
       <div className="post__content">
         <strong>
-          {state.count} {state.title}
+          {state.count}. {state.title}
         </strong>
-        <div>{state.text}</div>
+        <div className="post__content-text">{state.text}</div>
       </div>
       <div className="post__btns">
-        <button
-          onClick={plusOne}
-          type="button">
+        <DefaultButton className={"doneBtn"}>Done</DefaultButton>
+        <DefaultButton
+          className={"deleteBtn"}
+          onClick={handleDelete}>
           Delete
-        </button>
+        </DefaultButton>
       </div>
     </div>
   );

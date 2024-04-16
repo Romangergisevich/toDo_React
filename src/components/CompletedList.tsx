@@ -14,10 +14,10 @@ interface PostListProps {
   deletePost: (title: string, text: string) => void;
 }
 
-const PostList: React.FC<PostListProps> = (props) => {
+const CompletedList: React.FC<PostListProps> = (props) => {
   return (
     <>
-      <h1>{props.listTitle ? props.listTitle : "Random List Title"}</h1>
+      <h1>Completed Tasks</h1>
       {props.postArr.map((post) => (
         <PostItem
           key={post.title + props.postArr.indexOf(post)}
@@ -31,4 +31,4 @@ const PostList: React.FC<PostListProps> = (props) => {
   );
 };
 
-export default PostList;
+export default CompletedList;

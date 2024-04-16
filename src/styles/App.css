@@ -5,19 +5,21 @@
 }
 
 #root {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .App {
   display: flex;
+  width: 70%;
   justify-content: space-around;
   flex-direction: column;
   align-items: center;
 }
 
 .post {
-  min-width: 500px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 15px;
@@ -31,16 +33,26 @@
   flex-direction: column;
   align-items: flex-start;
 }
+
+.post__content-text {
+  font-style: italic;
+}
+
 .post strong {
   margin-right: 10px;
+  font-size: 18px;
 }
 
 .post-form {
+  width: 100%;
   margin-top: 15px;
   min-width: 500px;
+  display: flex;
+  justify-content: space-around;
 }
 
 .post-form form {
+  width: 666px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -53,4 +65,24 @@
   border: 1px solid teal;
   padding: 8px;
   margin-bottom: 15px;
+}
+
+.post-form textarea {
+  resize: none;
+  height: 130px;
+}
+
+.post-form__buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.main-head {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  display: flex;
+  background: #242424;
+  border-bottom: 1px solid teal;
 }
