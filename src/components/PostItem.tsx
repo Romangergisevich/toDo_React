@@ -7,6 +7,7 @@ interface PostState {
   text: string;
   myParent: string;
   deletePost: (title: string, text: string) => void;
+  taskIsDone: (title: string, text: string) => void;
 }
 
 const PostItem: React.FC<PostState> = (props) => {
@@ -16,10 +17,15 @@ const PostItem: React.FC<PostState> = (props) => {
     text: props.text,
     myParent: props.myParent,
     deletePost: props.deletePost,
+    taskIsDone: props.taskIsDone,
   });
 
   const handleDelete = (): void => {
     state.deletePost(state.title, state.text);
+  };
+
+  const taskIsDone = (): void => {
+    state.taskIsDone(state.title, state.text);
   };
 
   return (
@@ -32,11 +38,16 @@ const PostItem: React.FC<PostState> = (props) => {
       </div>
       <div className="post__btns">
         {state.myParent == "ToDo" && (
-          <DefaultButton className={"doneBtn"}>Done</DefaultButton>
+          <DefaultButton
+            className={"doneBtn"}
+            taskIsDone={taskIsDone}>
+            Done
+          </DefaultButton>
         )}
         <DefaultButton
           className={"deleteBtn"}
-          onClick={handleDelete}>
+          handleDelete={handleDelete}
+          taskIsDone={taskIsDone}>
           Delete
         </DefaultButton>
       </div>

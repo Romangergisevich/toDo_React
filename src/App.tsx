@@ -51,25 +51,43 @@ const App: React.FC = () => {
     );
   };
 
+  const taskIsDone = (title: string, text: string): void => {
+    const completedTask = {
+      title: title,
+      text: text,
+    };
+
+    setPosts((prevState) =>
+      prevState.filter(
+        (p) =>
+          p.title.toLowerCase().split(" ").join() !=
+            title.toLowerCase().split(" ").join() ||
+          p.text.toLowerCase().split(" ").join() !=
+            text.toLowerCase().split(" ").join()
+      )
+    );
+    setCompleted((prevState) => prevState.concat(completedTask));
+  };
+
   const [posts, setPosts] = useState<Post[]>([
     {
-      title: "Javascript",
-      text: "JS - programming language",
+      title: "Task",
+      text: "random task",
     },
     {
-      title: "Python",
-      text: "Python - programming language",
+      title: "Task",
+      text: "learn english lang",
     },
   ]);
 
   const [completed, setCompleted] = useState<Post[]>([
     {
-      title: "Javascript",
-      text: "JS - programming language",
+      title: "Task",
+      text: "Learn react",
     },
     {
-      title: "Python",
-      text: "Python - programming language",
+      title: "Task",
+      text: "Learn react router",
     },
   ]);
 
@@ -89,7 +107,7 @@ const App: React.FC = () => {
         <Link
           className={classes.link}
           to="/newPost">
-          New Post
+          New Task
         </Link>
       </div>
       <Routes>
@@ -104,6 +122,7 @@ const App: React.FC = () => {
               postArr={posts}
               listTitle={"Tasks ToDo"}
               deletePost={deletePost}
+              taskIsDone={taskIsDone}
             />
           }
         />
@@ -113,6 +132,7 @@ const App: React.FC = () => {
             <CompletedList
               postArr={completed}
               deletePost={deleteComleted}
+              taskIsDone={taskIsDone}
             />
           }
         />

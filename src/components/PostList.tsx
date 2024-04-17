@@ -12,6 +12,7 @@ interface PostListProps {
   postArr: Post[];
   listTitle?: ListTitle;
   deletePost: (title: string, text: string) => void;
+  taskIsDone: (title: string, text: string) => void;
 }
 
 const PostList: React.FC<PostListProps> = (props) => {
@@ -26,6 +27,7 @@ const PostList: React.FC<PostListProps> = (props) => {
           title={post.title}
           text={post.text}
           deletePost={props.deletePost}
+          taskIsDone={props.taskIsDone}
         />
       ))}
     </>
