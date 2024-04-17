@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles/App.css";
 import PostList from "./components/PostList";
 import AddPostForm from "./components/AddPostForm";
@@ -69,27 +69,23 @@ const App: React.FC = () => {
     setCompleted((prevState) => prevState.concat(completedTask));
   };
 
-  const [posts, setPosts] = useState<Post[]>([
-    {
-      title: "Task",
-      text: "random task",
-    },
-    {
-      title: "Task",
-      text: "learn english lang",
-    },
-  ]);
+  const getLocalStorage = (key: string, initialValue: any): Post[] => {
+    const storedValue = localStorage.getItem(key);
+    return storedValue ? JSON.parse(storedValue) : initialValue;
+  };
+  const [toDo, setPosts] = useState<Post[]>(getLocalStorage("toDo", []));
 
-  const [completed, setCompleted] = useState<Post[]>([
-    {
-      title: "Task",
-      text: "Learn react",
-    },
-    {
-      title: "Task",
-      text: "Learn react router",
-    },
-  ]);
+  const [completed, setCompleted] = useState<Post[]>(
+    getLocalStorage("completed", [])
+  );
+
+  useEffect(() => {
+    localStorage.setItem("toDo", JSON.stringify(toDo));
+  }, [toDo]);
+
+  useEffect(() => {
+    localStorage.setItem("completed", JSON.stringify(completed));
+  }, [completed]);
 
   return (
     <div className="App">
@@ -119,7 +115,7 @@ const App: React.FC = () => {
           path="/"
           element={
             <PostList
-              postArr={posts}
+              postArr={toDo}
               listTitle={"Tasks ToDo"}
               deletePost={deletePost}
               taskIsDone={taskIsDone}

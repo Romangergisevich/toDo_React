@@ -86,3 +86,8 @@
   background: #242424;
   border-bottom: 1px solid teal;
 }
+
+.post__btns {
+  display: flex;
+  flex-direction: column;
+}

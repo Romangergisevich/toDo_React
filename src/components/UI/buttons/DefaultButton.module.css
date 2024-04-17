@@ -1,4 +1,5 @@
 .doneBtn {
+  width: 135px;
   margin: 5px;
   border-radius: 8px;
   border: 1px solid transparent;
@@ -16,6 +17,7 @@
 }
 
 .deleteBtn {
+  width: 135px;
   margin: 5px;
   border-radius: 8px;
   border: 1px solid transparent;
@@ -33,6 +35,7 @@
 }
 
 .submitBtn {
+  width: 135px;
   margin: 5px;
   border-radius: 8px;
   border: 1px solid transparent;
