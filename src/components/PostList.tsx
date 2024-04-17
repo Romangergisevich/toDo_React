@@ -6,13 +6,14 @@ type ListTitle = string | undefined | null;
 interface Post {
   title: string;
   text: string;
+  createDate: number;
 }
 
 interface PostListProps {
   postArr: Post[];
   listTitle?: ListTitle;
   deletePost: (title: string, text: string) => void;
-  taskIsDone: (title: string, text: string) => void;
+  taskIsDone: (title: string, text: string, createDate: number) => void;
 }
 
 const PostList: React.FC<PostListProps> = (props) => {
@@ -28,6 +29,7 @@ const PostList: React.FC<PostListProps> = (props) => {
           text={post.text}
           deletePost={props.deletePost}
           taskIsDone={props.taskIsDone}
+          createDate={post.createDate}
         />
       ))}
     </>

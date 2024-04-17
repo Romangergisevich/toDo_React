@@ -22,6 +22,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   padding: 15px;
   border: 2px solid teal;
   border-radius: 8px;
@@ -38,9 +39,23 @@
   font-style: italic;
 }
 
+.post-mainBlock {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
 .post strong {
   margin-right: 10px;
   font-size: 18px;
+}
+
+.post-timer {
+  cursor: pointer;
+  width: fit-content;
+  border: 1px solid teal;
+  border-radius: 6px;
+  padding: 5px 15px 5px 15px;
 }
 
 .post-form {

@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import DefaultButton from "./UI/buttons/DefaultButton";
 
 interface FunctionsProps {
-  createPost: (event: React.FormEvent, title: string, text: string) => void;
+  createPost: (
+    event: React.FormEvent,
+    title: string,
+    text: string,
+    createDate: number
+  ) => void;
 }
 
 const AddPostForm: React.FC<FunctionsProps> = (props) => {
@@ -11,7 +16,9 @@ const AddPostForm: React.FC<FunctionsProps> = (props) => {
 
   const createNewPost = (event: React.FormEvent) => {
     event.preventDefault();
-    if (postTitle && postText) props.createPost(event, postTitle, postText);
+    const newPostDate = Date.now();
+    if (postTitle && postText)
+      props.createPost(event, postTitle, postText, newPostDate);
   };
 
   const postTitleCreate = (event: React.SyntheticEvent): void => {

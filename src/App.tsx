@@ -9,19 +9,22 @@ import classes from "./components/UI/buttons/DefaultButton.module.css";
 interface Post {
   title: string;
   text: string;
+  createDate: number;
 }
 
 const App: React.FC = () => {
   const createPost = (
     event: React.FormEvent,
     title: string,
-    text: string
+    text: string,
+    createDate: number
   ): void => {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const newPost = {
       title: title,
       text: text,
+      createDate: createDate,
     };
     setPosts((prevState) => [...prevState, newPost]);
     form.reset();
@@ -51,10 +54,15 @@ const App: React.FC = () => {
     );
   };
 
-  const taskIsDone = (title: string, text: string): void => {
+  const taskIsDone = (
+    title: string,
+    text: string,
+    createDate: number
+  ): void => {
     const completedTask = {
       title: title,
       text: text,
+      createDate: createDate,
     };
 
     setPosts((prevState) =>
