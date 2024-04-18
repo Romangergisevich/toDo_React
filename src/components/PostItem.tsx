@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DefaultButton from "../components/UI/buttons/DefaultButton";
+import Timer from "./Timer";
 
 interface PostState {
   count: number;
@@ -17,7 +18,6 @@ interface PostItemsStates {
   text: string;
   myParent: string;
   createDate: number;
-  dateDifference: string;
   deletePost: (title: string, text: string) => void;
   taskIsDone: (title: string, text: string, createDate: number) => void;
 }
@@ -29,27 +29,9 @@ const PostItem: React.FC<PostState> = (props) => {
     text: props.text,
     myParent: props.myParent,
     createDate: props.createDate,
-    dateDifference: getDateTimeDifference(props.createDate, Date.now()),
     deletePost: props.deletePost,
     taskIsDone: props.taskIsDone,
   });
-
-  function getDateTimeDifference(date1: number, date2: number): string {
-    const diff = Math.abs(date1 - date2) / 1000;
-    const hours = String(Math.floor(diff / 3600)).padStart(2, "0");
-    const minutes = String(Math.floor((diff % 3600) / 60)).padStart(2, "0");
-    const seconds = String(Math.floor(diff % 60)).padStart(2, "0");
-
-    return `${hours} : ${minutes} : ${seconds}`;
-  }
-  useEffect(() => {
-    setInterval(() => {
-      setState((prevState) => ({
-        ...prevState,
-        dateDifference: getDateTimeDifference(state.createDate, Date.now()),
-      }));
-    }, 1000);
-  }, []);
 
   const handleDelete = (): void => {
     state.deletePost(state.title, state.text);
@@ -84,9 +66,7 @@ const PostItem: React.FC<PostState> = (props) => {
           </DefaultButton>
         </div>
       </div>
-      {props.myParent == "ToDo" && (
-        <span className="post-timer">{state.dateDifference}</span>
-      )}
+      {props.myParent == "ToDo" && <Timer createDate={props.createDate} />}
     </div>
   );
 };
