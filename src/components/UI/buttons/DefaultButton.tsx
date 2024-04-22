@@ -5,8 +5,7 @@ interface ButtonValues {
   className: string;
   ButtonType?: "submit" | "reset" | "button" | undefined;
   children?: string;
-  handleDelete?: () => void;
-  taskIsDone?: () => void;
+  onClickFunc?: () => void;
 }
 
 const DefaultButton: React.FC<ButtonValues> = (props) => {
@@ -15,7 +14,7 @@ const DefaultButton: React.FC<ButtonValues> = (props) => {
   return (
     <>
       <button
-        onClick={props.handleDelete ? props.handleDelete : props.taskIsDone}
+        onClick={props.onClickFunc}
         className={classes[btnClass]}
         type={props.ButtonType ? props.ButtonType : "button"}>
         {props.children ? props.children : "Default button"}

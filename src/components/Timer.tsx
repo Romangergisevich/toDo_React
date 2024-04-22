@@ -11,11 +11,23 @@ const Timer: React.FC<TimerProps> = (props) => {
 
   function getDateTimeDifference(date1: number, date2: number): string {
     const diff = Math.abs(date1 - date2) / 1000;
-    const hours = String(Math.floor(diff / 3600)).padStart(2, "0");
-    const minutes = String(Math.floor((diff % 3600) / 60)).padStart(2, "0");
-    const seconds = String(Math.floor(diff % 60)).padStart(2, "0");
+    const days = Math.floor(diff / (3600 * 24));
+    const remainingSeconds = diff % (3600 * 24);
+    const hours = String(Math.floor(remainingSeconds / 3600) % 24).padStart(
+      2,
+      "0"
+    );
+    const minutes = String(Math.floor((remainingSeconds % 3600) / 60)).padStart(
+      2,
+      "0"
+    );
+    const seconds = String(Math.floor(remainingSeconds % 60)).padStart(2, "0");
 
-    return `${hours} : ${minutes} : ${seconds}`;
+    if (days > 0) {
+      return `${days} d : ${hours} h : ${minutes} m  : ${seconds} s`;
+    } else {
+      return `${hours} h : ${minutes} m : ${seconds} s`;
+    }
   }
 
   useEffect(() => {

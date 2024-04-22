@@ -54,14 +54,13 @@ const PostItem: React.FC<PostState> = (props) => {
           {state.myParent == "ToDo" && (
             <DefaultButton
               className={"doneBtn"}
-              taskIsDone={taskIsDone}>
+              onClickFunc={taskIsDone}>
               Done
             </DefaultButton>
           )}
           <DefaultButton
             className={"deleteBtn"}
-            handleDelete={handleDelete}
-            taskIsDone={taskIsDone}>
+            onClickFunc={handleDelete}>
             Delete
           </DefaultButton>
         </div>

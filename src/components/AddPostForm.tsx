@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DefaultButton from "./UI/buttons/DefaultButton";
 
 interface FunctionsProps {
@@ -36,6 +36,11 @@ const AddPostForm: React.FC<FunctionsProps> = (props) => {
   return (
     <>
       <h1>Create new Task</h1>
+      <div>
+        <DefaultButton className="submitBtn">Plus</DefaultButton>
+        <DefaultButton className="submitBtn">Minus</DefaultButton>
+        <DefaultButton className="submitBtn">Change</DefaultButton>
+      </div>
       <div className="post-form">
         <form
           onSubmit={createNewPost}
