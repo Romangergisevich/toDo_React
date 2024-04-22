@@ -5,7 +5,7 @@ interface ButtonValues {
   className: string;
   ButtonType?: "submit" | "reset" | "button" | undefined;
   children?: string;
-  onClickFunc?: () => void;
+  onClickFunc?: (e: any) => any;
 }
 
 const DefaultButton: React.FC<ButtonValues> = (props) => {

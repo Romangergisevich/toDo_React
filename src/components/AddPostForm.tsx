@@ -36,7 +36,6 @@ const AddPostForm: React.FC<FunctionsProps> = (props) => {
   return (
     <>
       <h1>Create new Task</h1>
-
       <div className="post-form">
         <form
           onSubmit={createNewPost}

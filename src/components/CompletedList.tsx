@@ -16,7 +16,6 @@ interface PostListProps {
   taskIsDone: (title: string, text: string, createDate: number) => void;
 }
 const CompletedList: React.FC<PostListProps> = (props) => {
-  console.log(props.postArr);
   return (
     <>
       <h1>Completed Tasks</h1>
