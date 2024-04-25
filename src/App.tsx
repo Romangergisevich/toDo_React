@@ -5,7 +5,7 @@ import AddPostForm from "./components/AddPostForm";
 import { Routes, Route, Link } from "react-router-dom";
 import CompletedList from "./components/CompletedList";
 import classes from "./components/UI/buttons/DefaultButton.module.css";
-
+import Tests from "./components/Tests";
 interface Post {
   title: string;
   text: string;
@@ -113,6 +113,11 @@ const App: React.FC = () => {
           to="/newPost">
           New Task
         </Link>
+        <Link
+          className={classes.link}
+          to="/tests">
+          Tests
+        </Link>
       </div>
       <Routes>
         <Route
@@ -139,6 +144,10 @@ const App: React.FC = () => {
               taskIsDone={taskIsDone}
             />
           }
+        />
+        <Route
+          path="/tests"
+          element={<Tests />}
         />
       </Routes>
     </div>
