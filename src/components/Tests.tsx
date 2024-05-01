@@ -5,9 +5,19 @@ const Tests: React.FC = (props) => {
   return (
     <>
       <TextInput
-        placeholder="Text"
+        placeholder="FirstName"
         required={false}
-        inputId={"textInput_test"}
+        inputId={"textInput_test1"}
+      />
+      <TextInput
+        placeholder="LastName"
+        required={false}
+        inputId={"textInput_test2"}
+      />
+      <TextInput
+        placeholder="EmailAdres"
+        required={false}
+        inputId={"textInput_test3"}
       />
     </>
   );

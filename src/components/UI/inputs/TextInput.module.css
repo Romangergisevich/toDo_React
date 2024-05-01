@@ -1,5 +1,6 @@
 .inputGroup {
   position: relative;
+  margin: 15px;
 }
 
 .textInput {
@@ -15,6 +16,7 @@
   position: absolute;
   left: 15px;
   bottom: 50%;
+  border-radius: 8px;
   pointer-events: none;
   font-size: 1.3rem;
   color: rgb(117, 117, 117);
@@ -40,7 +42,7 @@
   font-size: 1.3rem;
   color: #ffffff;
   background-color: #242424;
-  padding: 0 0.2em;
+  padding: 0 0.3em;
 }
 
 .userLabelActive {
@@ -50,5 +52,5 @@
   font-size: 1.3rem;
   color: #ffffff;
   background-color: #242424;
-  padding: 0 0.2em;
+  padding: 0 0.3em;
 }
