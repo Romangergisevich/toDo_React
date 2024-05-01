@@ -8,8 +8,8 @@ interface InputAttributes {
 }
 
 const TextInput: React.FC<InputAttributes> = (props) => {
-  const labelRef = useRef(null);
-  const [isActive, setIsActive] = useState(false);
+  const labelRef = useRef<null>(null);
+  const [isActive, setIsActive] = useState<boolean>(false);
 
   const isInputFilledCSS = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.value.length > 0) {
