@@ -107,38 +107,40 @@ const App: React.FC = () => {
 
   var location = useLocation();
 
-  useEffect(() => {
-    const originalTitle: string = document.title;
-    let isFlash: boolean = false;
-    const titleSwap = (): void => {
-      document.title = isFlash ? `${toDo.length} tasks` : originalTitle;
-      isFlash = !isFlash;
-    };
+  //dynamic web page title swap
 
-    let titleSwapInterval: number = 0;
+  // useEffect(() => {
+  //   const originalTitle: string = document.title;
+  //   let isFlash: boolean = false;
+  //   const titleSwap = (): void => {
+  //     document.title = isFlash ? `${toDo.length} tasks` : originalTitle;
+  //     isFlash = !isFlash;
+  //   };
 
-    const handleBlur = (): void => {
-      if (location.pathname === "/") {
-        titleSwapInterval = setInterval(titleSwap, 2000);
-      }
-      return;
-    };
+  //   let titleSwapInterval: number = 0;
 
-    const handleFocus = (): void => {
-      document.title = originalTitle;
-      clearInterval(titleSwapInterval);
-    };
+  //   const handleBlur = (): void => {
+  //     if (location.pathname === "/") {
+  //       titleSwapInterval = setInterval(titleSwap, 2000);
+  //     }
+  //     return;
+  //   };
 
-    window.addEventListener("blur", handleBlur);
-    window.addEventListener("focus", handleFocus);
+  //   const handleFocus = (): void => {
+  //     document.title = originalTitle;
+  //     clearInterval(titleSwapInterval);
+  //   };
 
-    return () => {
-      document.title = originalTitle;
-      clearInterval(titleSwapInterval);
-      window.removeEventListener("blur", handleBlur);
-      window.removeEventListener("focus", handleFocus);
-    };
-  }, [location.pathname]);
+  //   window.addEventListener("blur", handleBlur);
+  //   window.addEventListener("focus", handleFocus);
+
+  //   return () => {
+  //     document.title = originalTitle;
+  //     clearInterval(titleSwapInterval);
+  //     window.removeEventListener("blur", handleBlur);
+  //     window.removeEventListener("focus", handleFocus);
+  //   };
+  // }, [location.pathname]);
 
   return (
     <div className="App">
