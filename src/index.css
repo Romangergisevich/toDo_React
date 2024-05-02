@@ -24,7 +24,10 @@ a:hover {
 
 body {
   margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -ms-flex-pack: distribute;
   justify-content: space-around;
   place-items: center;
   min-width: 320px;
