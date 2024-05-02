@@ -1,7 +1,12 @@
 import React from "react";
 import TextInput from "./UI/inputs/TextInput";
+import TextArea from "./UI/inputs/TextArea";
 
 const Tests: React.FC = (props) => {
+  const testFunc = (): void => {
+    console.log("test");
+  };
+
   return (
     <>
       <TextInput
@@ -18,6 +23,11 @@ const Tests: React.FC = (props) => {
         placeholder="EmailAdres"
         required={false}
         inputId={"textInput_test3"}
+      />
+      <TextArea
+        textAreaId={"qwerty"}
+        placeholder={"TextArea"}
+        onInputFunc={testFunc}
       />
     </>
   );

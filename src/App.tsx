@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import "./styles/App.css";
 import PostList from "./components/PostList";
 import AddPostForm from "./components/AddPostForm";
-import { Routes, Route, Link, useLocation } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Link,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import CompletedList from "./components/CompletedList";
 import classes from "./components/UI/buttons/DefaultButton.module.css";
 import Tests from "./components/Tests";
@@ -14,6 +20,7 @@ interface Post {
 }
 
 const App: React.FC = () => {
+  let navigate = useNavigate();
   const createPost = (
     event: React.FormEvent,
     title: string,
@@ -21,6 +28,7 @@ const App: React.FC = () => {
     createDate: number
   ): void => {
     event.preventDefault();
+    navigate("/");
     const form = event.target as HTMLFormElement;
     const newPost = {
       title: title,
@@ -100,21 +108,35 @@ const App: React.FC = () => {
   var location = useLocation();
 
   useEffect(() => {
-    const oroginalTitle: string = document.title;
-    var isFlash: Boolean = false;
+    const originalTitle: string = document.title;
+    let isFlash: boolean = false;
     const titleSwap = (): void => {
-      document.title = isFlash ? `${toDo.length} tasks` : oroginalTitle;
+      document.title = isFlash ? `${toDo.length} tasks` : originalTitle;
       isFlash = !isFlash;
     };
 
     let titleSwapInterval: number = 0;
 
-    if (location.pathname === "/") {
-      titleSwapInterval = setInterval(titleSwap, 2000);
-    }
-    return () => {
-      document.title = oroginalTitle;
+    const handleBlur = (): void => {
+      if (location.pathname === "/") {
+        titleSwapInterval = setInterval(titleSwap, 2000);
+      }
+      return;
+    };
+
+    const handleFocus = (): void => {
+      document.title = originalTitle;
       clearInterval(titleSwapInterval);
+    };
+
+    window.addEventListener("blur", handleBlur);
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      document.title = originalTitle;
+      clearInterval(titleSwapInterval);
+      window.removeEventListener("blur", handleBlur);
+      window.removeEventListener("focus", handleFocus);
     };
   }, [location.pathname]);
 

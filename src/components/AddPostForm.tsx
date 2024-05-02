@@ -1,5 +1,7 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useState } from "react";
 import DefaultButton from "./UI/buttons/DefaultButton";
+import TextInput from "./UI/inputs/TextInput";
+import TextArea from "./UI/inputs/TextArea";
 
 interface FunctionsProps {
   createPost: (
@@ -40,18 +42,17 @@ const AddPostForm: React.FC<FunctionsProps> = (props) => {
         <form
           onSubmit={createNewPost}
           id="addPostId">
-          <input
-            required
-            onInput={postTitleCreate}
-            className="post-form__input"
+          <TextInput
+            required={true}
+            inputId="postTitle"
             placeholder="Post title"
-            type="search"
+            onInputFunc={postTitleCreate}
           />
-          <textarea
-            required
-            onInput={postTextCreate}
-            className="post-form__input"
+          <TextArea
+            required={true}
+            textAreaId={"postText"}
             placeholder="Post text"
+            onInputFunc={postTextCreate}
           />
           <div className="post-form__buttons">
             <DefaultButton

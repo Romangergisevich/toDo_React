@@ -1,23 +1,25 @@
-.inputGroup {
+.textAreaGroup {
   position: relative;
   margin: 15px;
   width: 100%;
 }
 
-.textInput {
+.textAreaInput {
   border: 1px solid teal;
+  resize: none;
   border-radius: 8px;
   background: none;
   padding: 1rem;
   font-size: 1rem;
   color: #ffffff;
   width: 100%;
+  height: 130px;
 }
 
-.userLabel {
+.textAreaUserLabel {
   position: absolute;
   left: 15px;
-  bottom: 50%;
+  bottom: 80%;
   border-radius: 8px;
   pointer-events: none;
   font-size: 1.3rem;
@@ -30,17 +32,17 @@
   transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.textInput:focus {
+.textAreaInput:focus {
   outline: none;
   border: 1px solid teal;
   -webkit-box-shadow: 0px 5px 19px 2px rgba(0, 128, 128, 0.2);
   box-shadow: 0px 5px 19px 2px rgba(0, 128, 128, 0.2);
 }
 
-.userLabelActive {
-  -webkit-transform: translateY(-45%);
-  -ms-transform: translateY(-45%);
-  transform: translateY(-45%);
+.textAreaUserLabelActive {
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
   font-size: 1.3rem;
   color: #ffffff;
   background-color: #242424;

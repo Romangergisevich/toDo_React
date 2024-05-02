@@ -5,25 +5,25 @@ interface InputAttributes {
   placeholder: string;
   inputId: number | string;
   required?: boolean;
+  onInputFunc?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const TextInput: React.FC<InputAttributes> = (props) => {
-  const labelRef = useRef<null>(null);
+  const labelRef = useRef<HTMLLabelElement>(null);
   const [isActive, setIsActive] = useState<boolean>(false);
-
-  const isInputFilledCSS = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    if (e.target.value.length > 0) {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
-  };
 
   return (
     <div className={style.inputGroup}>
       <input
         id={`${props.inputId}`}
-        onInput={isInputFilledCSS}
+        onInput={props.onInputFunc}
+        onChange={(e) =>
+          e.target.value.length < 0 ? setIsActive(false) : setIsActive(true)
+        }
+        onFocus={() => setIsActive(true)}
+        onBlur={(e) =>
+          e.target.value.length < 1 ? setIsActive(false) : setIsActive(true)
+        }
         required={props.required ? props.required : false}
         className={style.textInput}
         type="text"
