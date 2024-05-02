@@ -105,7 +105,7 @@ const App: React.FC = () => {
     localStorage.setItem("completed", JSON.stringify(completed));
   }, [completed]);
 
-  var location = useLocation();
+  // var location = useLocation();
 
   //dynamic web page title swap
 
