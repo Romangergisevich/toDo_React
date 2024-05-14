@@ -1,5 +1,7 @@
 import React from "react";
 import PostItem from "./PostItem";
+import { useAppSelector } from "../hooks/tsHooks";
+import { RootState } from "../redux/store";
 
 type ListTitle = string | undefined | null;
 
@@ -17,6 +19,8 @@ interface PostListProps {
 }
 
 const PostList: React.FC<PostListProps> = (props) => {
+  const count = useAppSelector((state: RootState) => state.counter.value);
+
   return (
     <>
       <h1>{props.listTitle ? props.listTitle : "Random List Title"}</h1>
