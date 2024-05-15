@@ -2,23 +2,21 @@ import React, { useEffect, useState } from "react";
 import "./styles/App.css";
 import PostList from "./components/PostList";
 import AddPostForm from "./components/AddPostForm";
-import {
-  Routes,
-  Route,
-  Link,
-  useNavigate,
-} from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import CompletedList from "./components/CompletedList";
 import classes from "./components/UI/buttons/DefaultButton.module.css";
 import Tests from "./components/Tests";
 
-interface Post {
+interface NewPost {
   title: string;
   text: string;
+  rating: number;
   createDate: number;
 }
 
 const App: React.FC = () => {
+  // создание поста
+
   let navigate = useNavigate();
   const createPost = (
     event: React.FormEvent,
@@ -32,11 +30,14 @@ const App: React.FC = () => {
     const newPost = {
       title: title,
       text: text,
+      rating: 1,
       createDate: createDate,
     };
     setPosts((prevState) => [...prevState, newPost]);
     form.reset();
   };
+
+  // удаление поста
 
   const deletePost = (title: string, text: string): void => {
     setPosts((prevState) =>
@@ -50,6 +51,8 @@ const App: React.FC = () => {
     );
   };
 
+  // удаление выполненного поста
+
   const deleteComleted = (title: string, text: string): void => {
     setCompleted((prevState) =>
       prevState.filter(
@@ -62,6 +65,8 @@ const App: React.FC = () => {
     );
   };
 
+  // перенос выполненног поста в "выполненное"
+
   const taskIsDone = (
     title: string,
     text: string,
@@ -70,6 +75,7 @@ const App: React.FC = () => {
     const completedTask = {
       title: title,
       text: text,
+      rating: 0,
       createDate: createDate,
     };
 
@@ -85,16 +91,36 @@ const App: React.FC = () => {
     setCompleted((prevState) => prevState.concat(completedTask));
   };
 
-  const getLocalStorage = (key: string, initialValue: any): Post[] => {
+  // изменение поста
+
+  const updateRating = (createDate: number, newRating: number) => {
+    setPosts((prevState) =>
+      prevState
+        .map((p) =>
+          p.createDate === createDate ? { ...p, rating: newRating } : p
+        )
+        .sort((a, b) => b.rating - a.rating)
+    );
+  };
+
+  // получение постов из LS
+
+  const getLocalStorage = (key: string, initialValue: any): NewPost[] => {
     const storedValue = localStorage.getItem(key);
     return storedValue ? JSON.parse(storedValue) : initialValue;
   };
 
-  const [toDo, setPosts] = useState<Post[]>(getLocalStorage("toDo", []));
+  // получение постов "к выполнению"
 
-  const [completed, setCompleted] = useState<Post[]>(
+  const [toDo, setPosts] = useState<NewPost[]>(getLocalStorage("toDo", []));
+
+  // получение выполненных постов
+
+  const [completed, setCompleted] = useState<NewPost[]>(
     getLocalStorage("completed", [])
   );
+
+  // обновление значений LS
 
   useEffect(() => {
     localStorage.setItem("toDo", JSON.stringify(toDo));
@@ -103,43 +129,6 @@ const App: React.FC = () => {
   useEffect(() => {
     localStorage.setItem("completed", JSON.stringify(completed));
   }, [completed]);
-
-  // var location = useLocation();
-
-  //dynamic web page title swap
-
-  // useEffect(() => {
-  //   const originalTitle: string = document.title;
-  //   let isFlash: boolean = false;
-  //   const titleSwap = (): void => {
-  //     document.title = isFlash ? `${toDo.length} tasks` : originalTitle;
-  //     isFlash = !isFlash;
-  //   };
-
-  //   let titleSwapInterval: number = 0;
-
-  //   const handleBlur = (): void => {
-  //     if (location.pathname === "/") {
-  //       titleSwapInterval = setInterval(titleSwap, 2000);
-  //     }
-  //     return;
-  //   };
-
-  //   const handleFocus = (): void => {
-  //     document.title = originalTitle;
-  //     clearInterval(titleSwapInterval);
-  //   };
-
-  //   window.addEventListener("blur", handleBlur);
-  //   window.addEventListener("focus", handleFocus);
-
-  //   return () => {
-  //     document.title = originalTitle;
-  //     clearInterval(titleSwapInterval);
-  //     window.removeEventListener("blur", handleBlur);
-  //     window.removeEventListener("focus", handleFocus);
-  //   };
-  // }, [location.pathname]);
 
   return (
     <div className="App">
@@ -176,6 +165,7 @@ const App: React.FC = () => {
             <PostList
               postArr={toDo}
               listTitle={"Tasks ToDo"}
+              updateRating={updateRating}
               deletePost={deletePost}
               taskIsDone={taskIsDone}
             />

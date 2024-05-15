@@ -7,8 +7,10 @@ interface PostState {
   count: number;
   title: string;
   text: string;
+  rating: number;
   myParent: string;
   createDate: number;
+  updateRating: (createDate: number, newRating: number) => void;
   deletePost: (title: string, text: string) => void;
   taskIsDone: (title: string, text: string, createDate: number) => void;
 }
@@ -17,8 +19,10 @@ interface PostItemsStates {
   count: number;
   title: string;
   text: string;
+  rating: number;
   myParent: string;
   createDate: number;
+  updateRating: (createDate: number, newRating: number) => void;
   deletePost: (title: string, text: string) => void;
   taskIsDone: (title: string, text: string, createDate: number) => void;
 }
@@ -28,11 +32,17 @@ const PostItem: React.FC<PostState> = (props) => {
     count: props.count,
     title: props.title,
     text: props.text,
+    rating: props.rating,
     myParent: props.myParent,
     createDate: props.createDate,
+    updateRating: props.updateRating,
     deletePost: props.deletePost,
     taskIsDone: props.taskIsDone,
   });
+
+  const taskRatngUpdate = (e: number) => {
+    props.updateRating(state.createDate, e);
+  };
 
   const handleDelete = (): void => {
     state.deletePost(state.title, state.text);
@@ -65,8 +75,10 @@ const PostItem: React.FC<PostState> = (props) => {
             Delete
           </DefaultButton>
           <RangeRating
-            id={state.title}
-            name={state.title}
+            id={props.createDate}
+            name={`${state.title}-${props.createDate}`}
+            rating={state.rating}
+            updateRating={taskRatngUpdate}
           />
         </div>
       </div>
