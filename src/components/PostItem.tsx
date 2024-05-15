@@ -74,12 +74,14 @@ const PostItem: React.FC<PostState> = (props) => {
             onClickFunc={handleDelete}>
             Delete
           </DefaultButton>
-          <RangeRating
-            id={props.createDate}
-            name={`${state.title}-${props.createDate}`}
-            rating={state.rating}
-            updateRating={taskRatngUpdate}
-          />
+          {state.myParent == "ToDo" && (
+            <RangeRating
+              id={props.createDate}
+              name={`${state.title}-${props.createDate}`}
+              rating={state.rating}
+              updateRating={taskRatngUpdate}
+            />
+          )}
         </div>
       </div>
       {props.myParent == "ToDo" && <Timer createDate={props.createDate} />}

@@ -176,6 +176,7 @@ const App: React.FC = () => {
           element={
             <CompletedList
               postArr={completed}
+              updateRating={updateRating}
               deletePost={deleteComleted}
               taskIsDone={taskIsDone}
             />
