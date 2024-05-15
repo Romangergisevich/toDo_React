@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import DefaultButton from "../components/UI/buttons/DefaultButton";
 import Timer from "./Timer";
+import RangeRating from "./UI/rating/RangeRating";
 
 interface PostState {
   count: number;
@@ -63,6 +64,10 @@ const PostItem: React.FC<PostState> = (props) => {
             onClickFunc={handleDelete}>
             Delete
           </DefaultButton>
+          <RangeRating
+            id={state.title}
+            name={state.title}
+          />
         </div>
       </div>
       {props.myParent == "ToDo" && <Timer createDate={props.createDate} />}
