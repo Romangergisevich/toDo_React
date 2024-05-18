@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import DefaultButton from "../components/UI/buttons/DefaultButton";
 import Timer from "./Timer";
 import RangeRating from "./UI/rating/RangeRating";
+import EditButton from "./UI/buttons/EdditButton";
 
 interface PostState {
   count: number;
@@ -84,7 +85,12 @@ const PostItem: React.FC<PostState> = (props) => {
           )}
         </div>
       </div>
-      {props.myParent == "ToDo" && <Timer createDate={props.createDate} />}
+      {props.myParent == "ToDo" && (
+        <>
+          <Timer createDate={props.createDate} />
+          <EditButton />
+        </>
+      )}
     </div>
   );
 };
