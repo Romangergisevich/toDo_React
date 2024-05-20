@@ -17,6 +17,7 @@ interface PostState {
   rating: number;
   myParent: string;
   createDate: number;
+  postUpdate: (createDate: number, newTitle: string, newText: string) => void;
   updateRating: (createDate: number, newRating: number) => void;
   deletePost: (title: string, text: string) => void;
   taskIsDone: (title: string, text: string, createDate: number) => void;
@@ -26,6 +27,8 @@ interface PostItemsStates {
   count: number;
   title: string;
   text: string;
+  newTitle: string;
+  newText: string;
   rating: number;
   myParent: string;
   createDate: number;
@@ -43,6 +46,8 @@ const PostItem: React.FC<PostState> = (props) => {
     count: props.count,
     title: props.title,
     text: props.text,
+    newTitle: props.title,
+    newText: props.text,
     rating: props.rating,
     myParent: props.myParent,
     createDate: props.createDate,
@@ -74,6 +79,24 @@ const PostItem: React.FC<PostState> = (props) => {
     borderRadius: "8px",
     boxShadow: 24,
     p: 4,
+  };
+
+  const titleEdit = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setState((prev) => ({ ...prev, newTitle: e.target.value }));
+  };
+
+  const textEdit = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setState((prev) => ({ ...prev, newText: e.target.value }));
+  };
+
+  const postEdit = () => {
+    props.postUpdate(state.createDate, state.newTitle, state.newText);
+    setState((prev) => ({
+      ...prev,
+      text: state.newText,
+      title: state.newTitle,
+    }));
+    handleClose();
   };
 
   return (
@@ -129,10 +152,14 @@ const PostItem: React.FC<PostState> = (props) => {
           </Typography>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <TextInput
+              onInputFunc={titleEdit}
+              reservedValue={state.newTitle}
               inputId={`${props.createDate}-title`}
               placeholder="New title"
             />
             <TextArea
+              onInputFunc={textEdit}
+              reservedValue={state.newText}
               textAreaId={`${props.createDate}-text`}
               placeholder="New Text"
             />
@@ -143,7 +170,7 @@ const PostItem: React.FC<PostState> = (props) => {
                 marginRight: "-5px",
               }}>
               <DefaultButton
-                ButtonType="submit"
+                onClickFunc={postEdit}
                 className="doneBtn">
                 Save
               </DefaultButton>

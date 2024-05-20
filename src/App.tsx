@@ -6,6 +6,7 @@ import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import CompletedList from "./components/CompletedList";
 import classes from "./components/UI/buttons/DefaultButton.module.css";
 import Tests from "./components/Tests";
+import { create } from "@mui/material/styles/createTransitions";
 
 interface NewPost {
   title: string;
@@ -103,6 +104,20 @@ const App: React.FC = () => {
     );
   };
 
+  const postUpdate = (
+    createDate: number,
+    newTitle: string,
+    newText: string
+  ) => {
+    setPosts((prevState) =>
+      prevState.map((p) =>
+        p.createDate === createDate
+          ? { ...p, title: newTitle, text: newText }
+          : p
+      )
+    );
+  };
+
   // получение постов из LS
 
   const getLocalStorage = (key: string, initialValue: any): NewPost[] => {
@@ -112,7 +127,7 @@ const App: React.FC = () => {
 
   // получение постов "к выполнению"
 
-  const [toDo, setPosts] = useState<NewPost[]>(getLocalStorage("toDo", []));
+  const [posts, setPosts] = useState<NewPost[]>(getLocalStorage("toDo", []));
 
   // получение выполненных постов
 
@@ -123,8 +138,8 @@ const App: React.FC = () => {
   // обновление значений LS
 
   useEffect(() => {
-    localStorage.setItem("toDo", JSON.stringify(toDo));
-  }, [toDo]);
+    localStorage.setItem("toDo", JSON.stringify(posts));
+  }, [posts]);
 
   useEffect(() => {
     localStorage.setItem("completed", JSON.stringify(completed));
@@ -163,8 +178,9 @@ const App: React.FC = () => {
           path="/"
           element={
             <PostList
-              postArr={toDo}
+              postArr={posts}
               listTitle={"Tasks ToDo"}
+              updatePost={postUpdate}
               updateRating={updateRating}
               deletePost={deletePost}
               taskIsDone={taskIsDone}

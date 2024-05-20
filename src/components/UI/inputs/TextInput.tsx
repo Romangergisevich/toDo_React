@@ -1,10 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import style from "./TextInput.module.css";
 
 interface InputAttributes {
   placeholder: string;
   inputId: number | string;
   required?: boolean;
+  reservedValue?: string;
   onInputFunc?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -12,9 +13,16 @@ const TextInput: React.FC<InputAttributes> = (props) => {
   const labelRef = useRef<HTMLLabelElement>(null);
   const [isActive, setIsActive] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (props.reservedValue) {
+      labelRef.current?.classList.add(style.userLabelActive);
+    }
+  }, [props.reservedValue]);
+
   return (
     <div className={style.inputGroup}>
       <input
+        value={props.reservedValue}
         id={`${props.inputId}`}
         onInput={props.onInputFunc}
         onChange={(e) =>
