@@ -32,9 +32,7 @@ const Timer: React.FC<TimerProps> = (props) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setDefference(
-        (prev) => (prev = getDateTimeDifference(props.createDate, Date.now()))
-      );
+      setDefference(() => getDateTimeDifference(props.createDate, Date.now()));
     }, 1000);
 
     return () => {

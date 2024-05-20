@@ -9,7 +9,7 @@ interface ButtonValues {
 }
 
 const DefaultButton: React.FC<ButtonValues> = (props) => {
-  const [btnClass, setBtnClass] = useState<string>(props.className);
+  const [btnClass] = useState<string>(props.className);
 
   return (
     <>

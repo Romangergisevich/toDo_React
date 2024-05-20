@@ -7,7 +7,7 @@ import CompletedList from "./components/CompletedList";
 import classes from "./components/UI/buttons/DefaultButton.module.css";
 import Tests from "./components/Tests";
 import Snackbar from "@mui/material/Snackbar";
-import Slide, { SlideProps } from "@mui/material/Slide";
+import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
 import Alert from "@mui/material/Alert";
 
@@ -248,6 +248,7 @@ const App: React.FC = () => {
           element={
             <CompletedList
               postArr={completed}
+              updatePost={postUpdate}
               updateRating={updateRating}
               deletePost={deleteComleted}
               taskIsDone={taskIsDone}
