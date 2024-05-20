@@ -265,6 +265,7 @@ const App: React.FC = () => {
         onClose={handleClose}
         TransitionComponent={snackbar.Transition}
         // message="I love snacks"
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
         key={snackbar.Transition.name}
         autoHideDuration={2000}>
         <Alert
