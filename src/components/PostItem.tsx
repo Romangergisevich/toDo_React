@@ -97,7 +97,7 @@ const PostItem: React.FC<PostState> = (props) => {
     e.preventDefault();
     newTitle != state.title && newText != state.text
       ? props.editPost(state.createDate, newTitle, newText, e)
-      : console.error("qwe");
+      : alert("New title and (or) text is same as current.");
   };
 
   return (

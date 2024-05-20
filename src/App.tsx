@@ -109,7 +109,6 @@ const App: React.FC = () => {
     newText: string,
     event: React.FormEvent
   ) => {
-    event.preventDefault();
     setPosts((prevState) =>
       prevState.map((p) =>
         p.createDate === createDate
@@ -117,6 +116,7 @@ const App: React.FC = () => {
           : p
       )
     );
+    event.preventDefault();
   };
 
   // получение постов из LS
