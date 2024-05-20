@@ -13,6 +13,12 @@ interface Post {
 interface PostListProps {
   postArr: Post[];
   listTitle?: ListTitle;
+  editPost: (
+    createDate: number,
+    newTitle: string,
+    newText: string,
+    event: React.FormEvent
+  ) => void;
   updateRating: (createDate: number, newRating: number) => void;
   deletePost: (title: string, text: string) => void;
   taskIsDone: (title: string, text: string, createDate: number) => void;
@@ -31,6 +37,7 @@ const PostList: React.FC<PostListProps> = (props) => {
             title={post.title}
             text={post.text}
             rating={post.rating}
+            editPost={props.editPost}
             updateRating={props.updateRating}
             deletePost={props.deletePost}
             taskIsDone={props.taskIsDone}

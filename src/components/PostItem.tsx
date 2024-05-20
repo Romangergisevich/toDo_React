@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import DefaultButton from "../components/UI/buttons/DefaultButton";
 import Timer from "./Timer";
 import RangeRating from "./UI/rating/RangeRating";
 import EditButton from "./UI/buttons/EdditButton";
+// modal parts
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import TextInput from "./UI/inputs/TextInput";
+import TextArea from "./UI/inputs/TextArea";
 
 interface PostState {
   count: number;
@@ -11,6 +17,12 @@ interface PostState {
   rating: number;
   myParent: string;
   createDate: number;
+  editPost: (
+    createDate: number,
+    newTitle: string,
+    newText: string,
+    event: React.FormEvent
+  ) => void;
   updateRating: (createDate: number, newRating: number) => void;
   deletePost: (title: string, text: string) => void;
   taskIsDone: (title: string, text: string, createDate: number) => void;
@@ -29,6 +41,10 @@ interface PostItemsStates {
 }
 
 const PostItem: React.FC<PostState> = (props) => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const [state, setState] = useState<PostItemsStates>({
     count: props.count,
     title: props.title,
@@ -51,6 +67,37 @@ const PostItem: React.FC<PostState> = (props) => {
 
   const taskIsDone = (): void => {
     state.taskIsDone(state.title, state.text, state.createDate);
+  };
+
+  const style = {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "40%",
+    bgcolor: "#242424",
+    border: "1px solid teal",
+    borderRadius: "8px",
+    boxShadow: 24,
+    p: 4,
+  };
+
+  let newTitle: string = "";
+  let newText: string = "";
+
+  const newTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    newTitle = e.target.value;
+  };
+
+  const newTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    newText = e.currentTarget.value;
+  };
+
+  const edtCurrentPost = (e: React.FormEvent) => {
+    e.preventDefault();
+    newTitle != state.title && newText != state.text
+      ? props.editPost(state.createDate, newTitle, newText, e)
+      : console.error("qwe");
   };
 
   return (
@@ -88,9 +135,58 @@ const PostItem: React.FC<PostState> = (props) => {
       {props.myParent == "ToDo" && (
         <>
           <Timer createDate={props.createDate} />
-          <EditButton />
+          <EditButton onClickFunc={handleOpen} />
         </>
       )}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description">
+        <Box sx={style}>
+          <Typography
+            style={{ display: "flex", justifyContent: "space-around" }}
+            id="modal-modal-title"
+            variant="h4"
+            component="h2">
+            Edit post
+          </Typography>
+          <form
+            onSubmit={edtCurrentPost}
+            style={{ display: "flex", flexDirection: "column" }}>
+            <TextInput
+              required
+              onInputFunc={newTitleChange}
+              inputId={`${props.createDate}-title`}
+              placeholder="New title"
+            />
+            <TextArea
+              required
+              onInputFunc={newTextChange}
+              textAreaId={`${props.createDate}-text`}
+              placeholder="New Text"
+            />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "end",
+                marginRight: "-5px",
+              }}>
+              <DefaultButton
+                ButtonType="submit"
+                // onClickFunc={edtCurrentPost}
+                className="doneBtn">
+                Save
+              </DefaultButton>
+              <DefaultButton
+                onClickFunc={handleClose}
+                className="deleteBtn">
+                Close
+              </DefaultButton>
+            </div>
+          </form>
+        </Box>
+      </Modal>
     </div>
   );
 };

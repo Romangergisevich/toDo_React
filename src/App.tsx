@@ -103,6 +103,22 @@ const App: React.FC = () => {
     );
   };
 
+  const editPost = (
+    createDate: number,
+    newTitle: string,
+    newText: string,
+    event: React.FormEvent
+  ) => {
+    event.preventDefault();
+    setPosts((prevState) =>
+      prevState.map((p) =>
+        p.createDate === createDate
+          ? { ...p, title: newTitle, text: newText }
+          : p
+      )
+    );
+  };
+
   // получение постов из LS
 
   const getLocalStorage = (key: string, initialValue: any): NewPost[] => {
@@ -165,6 +181,7 @@ const App: React.FC = () => {
             <PostList
               postArr={toDo}
               listTitle={"Tasks ToDo"}
+              editPost={editPost}
               updateRating={updateRating}
               deletePost={deletePost}
               taskIsDone={taskIsDone}

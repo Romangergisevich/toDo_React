@@ -1,10 +1,16 @@
 import React from "react";
 import styles from "./EditButton.module.css";
 
-const EditButton: React.FC = () => {
+interface EditButtonValues {
+  onClickFunc: () => void;
+}
+
+const EditButton: React.FC<EditButtonValues> = (props) => {
   return (
     <>
-      <button className={styles.editButton}>
+      <button
+        onClick={props.onClickFunc}
+        className={styles.editButton}>
         <svg
           className={styles.editSvgIcon}
           viewBox="0 0 512 512">

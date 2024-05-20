@@ -144,6 +144,7 @@
 .main-head {
   position: fixed;
   top: 0px;
+  z-index: 2;
   padding: 10px;
   width: 100%;
   display: -webkit-box;
