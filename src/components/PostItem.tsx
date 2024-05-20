@@ -17,12 +17,6 @@ interface PostState {
   rating: number;
   myParent: string;
   createDate: number;
-  editPost: (
-    createDate: number,
-    newTitle: string,
-    newText: string,
-    event: React.FormEvent
-  ) => void;
   updateRating: (createDate: number, newRating: number) => void;
   deletePost: (title: string, text: string) => void;
   taskIsDone: (title: string, text: string, createDate: number) => void;
@@ -82,24 +76,6 @@ const PostItem: React.FC<PostState> = (props) => {
     p: 4,
   };
 
-  let newTitle: string = "";
-  let newText: string = "";
-
-  const newTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    newTitle = e.target.value;
-  };
-
-  const newTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    newText = e.currentTarget.value;
-  };
-
-  const edtCurrentPost = (e: React.FormEvent) => {
-    e.preventDefault();
-    newTitle != state.title && newText != state.text
-      ? props.editPost(state.createDate, newTitle, newText, e)
-      : alert("New title and (or) text is same as current.");
-  };
-
   return (
     <div className="post">
       <div className="post-mainBlock">
@@ -151,18 +127,12 @@ const PostItem: React.FC<PostState> = (props) => {
             component="h2">
             Edit post
           </Typography>
-          <form
-            onSubmit={edtCurrentPost}
-            style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ display: "flex", flexDirection: "column" }}>
             <TextInput
-              required
-              onInputFunc={newTitleChange}
               inputId={`${props.createDate}-title`}
               placeholder="New title"
             />
             <TextArea
-              required
-              onInputFunc={newTextChange}
               textAreaId={`${props.createDate}-text`}
               placeholder="New Text"
             />
@@ -174,7 +144,6 @@ const PostItem: React.FC<PostState> = (props) => {
               }}>
               <DefaultButton
                 ButtonType="submit"
-                // onClickFunc={edtCurrentPost}
                 className="doneBtn">
                 Save
               </DefaultButton>
@@ -184,7 +153,7 @@ const PostItem: React.FC<PostState> = (props) => {
                 Close
               </DefaultButton>
             </div>
-          </form>
+          </div>
         </Box>
       </Modal>
     </div>
