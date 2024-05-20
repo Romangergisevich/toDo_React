@@ -6,7 +6,10 @@ import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import CompletedList from "./components/CompletedList";
 import classes from "./components/UI/buttons/DefaultButton.module.css";
 import Tests from "./components/Tests";
-import { create } from "@mui/material/styles/createTransitions";
+import Snackbar from "@mui/material/Snackbar";
+import Slide, { SlideProps } from "@mui/material/Slide";
+import { TransitionProps } from "@mui/material/transitions";
+import Alert from "@mui/material/Alert";
 
 interface NewPost {
   title: string;
@@ -16,6 +19,29 @@ interface NewPost {
 }
 
 const App: React.FC = () => {
+  // snackbar
+
+  const [snackbar, setSnackbar] = React.useState<{
+    open: boolean;
+    text: string;
+    Transition: React.ComponentType<
+      TransitionProps & {
+        children: React.ReactElement<any, any>;
+      }
+    >;
+  }>({
+    open: false,
+    text: "success",
+    Transition: Slide,
+  });
+
+  const handleClose = () => {
+    setSnackbar({
+      ...snackbar,
+      open: false,
+    });
+  };
+
   // создание поста
 
   let navigate = useNavigate();
@@ -36,6 +62,11 @@ const App: React.FC = () => {
     };
     setPosts((prevState) => [...prevState, newPost]);
     form.reset();
+    setSnackbar({
+      open: true,
+      text: "New task is created!",
+      Transition: Slide,
+    });
   };
 
   // удаление поста
@@ -50,6 +81,11 @@ const App: React.FC = () => {
             text.toLowerCase().split(" ").join()
       )
     );
+    setSnackbar({
+      open: true,
+      text: "Post was deleted.",
+      Transition: Slide,
+    });
   };
 
   // удаление выполненного поста
@@ -64,6 +100,11 @@ const App: React.FC = () => {
             text.toLowerCase().split(" ").join()
       )
     );
+    setSnackbar({
+      open: true,
+      text: "Post was deleted.",
+      Transition: Slide,
+    });
   };
 
   // перенос выполненног поста в "выполненное"
@@ -90,6 +131,11 @@ const App: React.FC = () => {
       )
     );
     setCompleted((prevState) => prevState.concat(completedTask));
+    setSnackbar({
+      open: true,
+      text: "Task is done!",
+      Transition: Slide,
+    });
   };
 
   // изменение поста
@@ -102,6 +148,11 @@ const App: React.FC = () => {
         )
         .sort((a, b) => b.rating - a.rating)
     );
+    setSnackbar({
+      open: true,
+      text: "Rating was changed.",
+      Transition: Slide,
+    });
   };
 
   const postUpdate = (
@@ -116,6 +167,11 @@ const App: React.FC = () => {
           : p
       )
     );
+    setSnackbar({
+      open: true,
+      text: "Changes was saved.",
+      Transition: Slide,
+    });
   };
 
   // получение постов из LS
@@ -203,6 +259,21 @@ const App: React.FC = () => {
           element={<Tests />}
         />
       </Routes>
+      <Snackbar
+        open={snackbar.open}
+        onClose={handleClose}
+        TransitionComponent={snackbar.Transition}
+        // message="I love snacks"
+        key={snackbar.Transition.name}
+        autoHideDuration={2000}>
+        <Alert
+          onClose={handleClose}
+          severity="success"
+          variant="filled"
+          sx={{ width: "100%" }}>
+          {snackbar.text}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
