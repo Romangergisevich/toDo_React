@@ -196,3 +196,24 @@
   border-radius: 10px;
   border: 6px solid #242424;
 }
+
+.filterPanel {
+  display: flex;
+  width: 100%;
+  padding: 0 15px 0 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filterPanel__sort {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.filterPanel__sort h3 {
+  cursor: default;
+  padding: 0px 4px 4px 0;
+  font-size: 20px;
+}

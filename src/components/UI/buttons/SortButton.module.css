@@ -1,0 +1,26 @@
+.sortButton {
+  width: 45px;
+  height: 45px;
+  margin: 5px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background-image: url("../../../assets/icons/sort_icon.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  -webkit-transition: border-color 0.25s;
+  -o-transition: border-color 0.25s;
+  transition: border-color 0.25s;
+  opacity: 0.5;
+  transition: 0.4s ease;
+}
+.sortButton:hover {
+  transform: scale(1.03);
+  opacity: 1;
+  transition: 0.4s ease;
+}

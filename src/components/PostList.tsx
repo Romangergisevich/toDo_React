@@ -1,5 +1,8 @@
 import React from "react";
 import PostItem from "./PostItem";
+import TextInput from "./UI/inputs/TextInput";
+import Radio from "./UI/radio/Radio";
+import SortButton from "./UI/buttons/SortBtton";
 
 type ListTitle = string | undefined | null;
 
@@ -23,6 +26,17 @@ const PostList: React.FC<PostListProps> = (props) => {
   return (
     <>
       <h1>{props.listTitle ? props.listTitle : "Random List Title"}</h1>
+      <div className="filterPanel">
+        <TextInput
+          inputId={"Filter_input"}
+          placeholder="Filter"
+        />
+        <div className="filterPanel__sort">
+          <h3>Sort by</h3>
+          <Radio />
+          <SortButton />
+        </div>
+      </div>
       <div className="listContainer">
         {props.postArr.map((post) => (
           <PostItem
