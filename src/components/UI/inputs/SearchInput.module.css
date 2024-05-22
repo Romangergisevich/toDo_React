@@ -50,6 +50,14 @@
   height: 100%;
 }
 
+.searchDisabled {
+  opacity: 0.4;
+}
+
+.searchDisabled input {
+  cursor: default !important;
+}
+
 input[type="search"]::-webkit-search-clear-button {
   cursor: pointer;
   position: absolute;

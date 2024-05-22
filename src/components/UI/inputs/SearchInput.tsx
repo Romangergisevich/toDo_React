@@ -1,16 +1,25 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import style from "./SearchInput.module.css";
 
 interface SearchInputProps {
   extended: boolean;
+  onInputFunc: (e: ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
 }
 
 const SearchInput: React.FC<SearchInputProps> = (props) => {
   return (
-    <div className={style.container}>
+    <div
+      className={
+        props.disabled
+          ? `${style.container} ${style.searchDisabled}`
+          : style.container
+      }>
       <input
+        disabled={props.disabled}
         type="search"
         name="text"
+        onInput={props.onInputFunc}
         className={style.input}
         required={props.extended}
         placeholder="Search..."

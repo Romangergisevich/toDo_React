@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import PostItem from "./PostItem";
 import Radio from "./UI/radio/Radio";
 import SortButton from "./UI/buttons/SortBtton";
-import SearchInput from "./UI/inputs/SearchInput";
 
 type ListTitle = string | undefined | null;
 
@@ -45,12 +44,10 @@ const PostList: React.FC<PostListProps> = (props) => {
   const sortByparam = () => {
     props.sortFunc(sortParams.variant, sortParams.snackbarTitle);
   };
-
   return (
     <>
       <h1>{props.listTitle ? props.listTitle : "Random List Title"}</h1>
       <div className="filterPanel">
-        <SearchInput extended={false} />
         <div className="filterPanel__sort">
           <h3>Sort by</h3>
           <Radio
