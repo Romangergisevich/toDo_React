@@ -3,7 +3,7 @@ import style from "./SearchInput.module.css";
 
 interface SearchInputProps {
   extended: boolean;
-  onInputFunc: (e: ChangeEvent<HTMLInputElement>) => void;
+  onInputFunc?: (e: ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean;
 }
 
