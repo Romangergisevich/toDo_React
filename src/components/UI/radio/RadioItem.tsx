@@ -4,21 +4,23 @@ import style from "./Radio.module.css";
 interface RadoState {
   itemId: string;
   children: any;
-  isChecked?: boolean;
   radioValue: number;
+  currentRadioState: number;
+  radioChangeFunc: (e: number) => void;
 }
 
 const RadioItem: React.FC<RadoState> = (props) => {
   const logVal = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
+    props.radioChangeFunc(props.radioValue);
   };
 
   return (
     <>
       <input
+        checked={props.radioValue == props.currentRadioState ? true : false}
         value={props.radioValue}
         onChange={logVal}
-        checked={props.isChecked}
         className={style.customCheckBoxInput}
         name="radio-one"
         id={props.itemId}
