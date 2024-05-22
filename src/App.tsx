@@ -205,6 +205,14 @@ const App: React.FC = () => {
 
   const [sortReverse, setSortReverse] = useState(true);
 
+  useEffect(
+    () =>
+      setPosts((prevState) =>
+        [...prevState].sort((a, b) => b.rating - a.rating)
+      ),
+    []
+  );
+
   const sortByFunc = (variant: number, snackbarTitle: string) => {
     if (variant == 1) {
       switch (sortReverse) {
