@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DefaultButton from "../components/UI/buttons/DefaultButton";
 import Timer from "./Timer";
 import RangeRating from "./UI/rating/RangeRating";
@@ -55,6 +55,16 @@ const PostItem: React.FC<PostState> = (props) => {
     deletePost: props.deletePost,
     taskIsDone: props.taskIsDone,
   });
+
+  useEffect(
+    () =>
+      setState((prevState) => ({
+        ...prevState,
+        newText: props.text,
+        newTitle: props.title,
+      })),
+    [open]
+  );
 
   const taskRatngUpdate = (e: number) => {
     props.updateRating(state.createDate, e);
