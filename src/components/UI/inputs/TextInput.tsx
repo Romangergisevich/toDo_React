@@ -6,6 +6,7 @@ interface InputAttributes {
   inputId: number | string;
   required?: boolean;
   reservedValue?: string;
+  type?: string;
   onInputFunc?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -34,7 +35,7 @@ const TextInput: React.FC<InputAttributes> = (props) => {
         }
         required={props.required ? props.required : false}
         className={style.textInput}
-        type="text"
+        type={props.type ? props.type : "text"}
       />
       <label
         ref={labelRef}
