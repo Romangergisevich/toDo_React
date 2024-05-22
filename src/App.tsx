@@ -201,6 +201,46 @@ const App: React.FC = () => {
     localStorage.setItem("completed", JSON.stringify(completed));
   }, [completed]);
 
+  // Сортировка PostList
+
+  const [sortReverse, setSortReverse] = useState(true);
+
+  const sortByFunc = (variant: number, snackbarTitle: string) => {
+    if (variant == 1) {
+      switch (sortReverse) {
+        case false:
+          setPosts((prevState) =>
+            [...prevState].sort((a, b) => b.rating - a.rating)
+          );
+          break;
+        case true:
+          setPosts((prevState) =>
+            [...prevState].sort((a, b) => a.rating - b.rating)
+          );
+          break;
+      }
+    } else if (variant == 2) {
+      switch (sortReverse) {
+        case false:
+          setPosts((prevState) =>
+            [...prevState].sort((a, b) => b.createDate - a.createDate)
+          );
+          break;
+        case true:
+          setPosts((prevState) =>
+            [...prevState].sort((a, b) => a.createDate - b.createDate)
+          );
+          break;
+      }
+    }
+    setSortReverse(() => !sortReverse);
+    setSnackbar({
+      open: true,
+      text: `Sorted by ${snackbarTitle}`,
+      Transition: Slide,
+    });
+  };
+
   return (
     <div className="App">
       <div className="main-head">
@@ -234,6 +274,7 @@ const App: React.FC = () => {
           path="/"
           element={
             <PostList
+              sortFunc={sortByFunc}
               postArr={posts}
               listTitle={"Tasks ToDo"}
               updatePost={postUpdate}

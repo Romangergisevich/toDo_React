@@ -6,13 +6,12 @@ interface RadoState {
   children: any;
   radioValue: number;
   currentRadioState: number;
-  radioChangeFunc: (e: number) => void;
+  radioChangeFunc: (e: number, t: string) => void;
 }
 
 const RadioItem: React.FC<RadoState> = (props) => {
-  const logVal = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-    props.radioChangeFunc(props.radioValue);
+  const logVal = () => {
+    props.radioChangeFunc(props.radioValue, props.children);
   };
 
   return (

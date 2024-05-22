@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PostItem from "./PostItem";
 import TextInput from "./UI/inputs/TextInput";
 import Radio from "./UI/radio/Radio";
@@ -20,9 +20,32 @@ interface PostListProps {
   updateRating: (createDate: number, newRating: number) => void;
   deletePost: (title: string, text: string) => void;
   taskIsDone: (title: string, text: string, createDate: number) => void;
+  sortFunc: (variant: number, snackbarTitle: string) => void;
+}
+
+interface SortParamsState {
+  variant: number;
+  snackbarTitle: string;
 }
 
 const PostList: React.FC<PostListProps> = (props) => {
+  const [sortParams, setSortParams] = useState<SortParamsState>({
+    variant: 1,
+    snackbarTitle: "Priority",
+  });
+
+  const newSortParams = (newVar: number, newTitle: string) => {
+    setSortParams((prevState) => ({
+      ...prevState,
+      variant: newVar,
+      snackbarTitle: newTitle,
+    }));
+  };
+
+  const sortByparam = () => {
+    props.sortFunc(sortParams.variant, sortParams.snackbarTitle);
+  };
+
   return (
     <>
       <h1>{props.listTitle ? props.listTitle : "Random List Title"}</h1>
@@ -33,8 +56,12 @@ const PostList: React.FC<PostListProps> = (props) => {
         />
         <div className="filterPanel__sort">
           <h3>Sort by</h3>
-          <Radio />
-          <SortButton />
+          <Radio
+            changeSortParams={newSortParams}
+            variant={sortParams.variant}
+            title={sortParams.snackbarTitle}
+          />
+          <SortButton sortFunc={sortByparam} />
         </div>
       </div>
       <div className="listContainer">

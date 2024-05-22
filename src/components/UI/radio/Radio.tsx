@@ -2,17 +2,26 @@ import React, { useState } from "react";
 import style from "./Radio.module.css";
 import RadioItem from "./RadioItem";
 
-interface RadioState {
-  value: number;
+interface RadioProps {
+  variant: number;
+  title: string;
+  changeSortParams: (newVar: number, newTitle: string) => void;
 }
 
-const Radio: React.FC = (props) => {
+interface RadioState {
+  value: number;
+  title: string;
+}
+
+const Radio: React.FC<RadioProps> = (props) => {
   const [radioState, setRadioState] = useState<RadioState>({
-    value: 1,
+    value: props.variant,
+    title: props.title,
   });
 
-  const radioChange = (e: number) => {
+  const radioChange = (e: number, t: string) => {
     setRadioState((prevState) => ({ ...prevState, value: e }));
+    props.changeSortParams(e, t);
   };
 
   return (
@@ -23,14 +32,14 @@ const Radio: React.FC = (props) => {
           currentRadioState={radioState.value}
           itemId="radio-1"
           radioValue={1}>
-          Date
+          Priority
         </RadioItem>
         <RadioItem
           radioChangeFunc={radioChange}
           currentRadioState={radioState.value}
           itemId="radio-2"
           radioValue={2}>
-          Priority
+          Date
         </RadioItem>
       </div>
     </>
