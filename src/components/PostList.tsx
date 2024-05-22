@@ -47,17 +47,19 @@ const PostList: React.FC<PostListProps> = (props) => {
   return (
     <>
       <h1>{props.listTitle ? props.listTitle : "Random List Title"}</h1>
-      <div className="filterPanel">
-        <div className="filterPanel__sort">
-          <h3>Sort by</h3>
-          <Radio
-            changeSortParams={newSortParams}
-            variant={sortParams.variant}
-            title={sortParams.snackbarTitle}
-          />
-          <SortButton sortFunc={sortByparam} />
+      {props.postArr.length > 1 ? (
+        <div className="filterPanel">
+          <div className="filterPanel__sort">
+            <h3>Sort by</h3>
+            <Radio
+              changeSortParams={newSortParams}
+              variant={sortParams.variant}
+              title={sortParams.snackbarTitle}
+            />
+            <SortButton sortFunc={sortByparam} />
+          </div>
         </div>
-      </div>
+      ) : null}
       <div className="listContainer">
         {props.postArr.map((post) => (
           <PostItem
