@@ -52,7 +52,7 @@ const App: React.FC = () => {
     createDate: number
   ): void => {
     event.preventDefault();
-    navigate("/");
+    navigate("/home");
     const form = event.target as HTMLFormElement;
     const newPost = {
       title: title,
