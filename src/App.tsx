@@ -254,7 +254,7 @@ const App: React.FC = () => {
       <div className="main-head">
         <Link
           className={classes.link}
-          to="/home">
+          to="/">
           ToDo
         </Link>
         <Link
@@ -279,7 +279,7 @@ const App: React.FC = () => {
           element={<AddPostForm createPost={createPost} />}
         />
         <Route
-          path="/home"
+          path="/"
           element={
             <PostList
               sortFunc={sortByFunc}
