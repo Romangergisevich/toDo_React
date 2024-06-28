@@ -23,14 +23,9 @@ interface NewPost {
 const App: React.FC = () => {
   //blockRouting
 
-  const isBlocked = useAppSelector((state: RootState) => state.isDataSaved);
+  const dataStatus = useAppSelector((state: RootState) => state.isDataSaved);
 
-  console.log(isBlocked);
-
-  const blocker = useBlocker(
-    ({ currentLocation, nextLocation }) =>
-      isBlocked && currentLocation.pathname !== nextLocation.pathname
-  );
+  const blocker = useBlocker(dataStatus.isBlocked);
 
   useEffect(() => {
     if (blocker.state === "blocked")

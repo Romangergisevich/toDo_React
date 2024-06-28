@@ -5,28 +5,21 @@ export interface isDataSavedState {
 }
 
 const initialState: isDataSavedState = {
-  isBlocked: false,
+  isBlocked: true,
 };
 
 export const isDataSaved = createSlice({
   name: "isDataSaved",
   initialState,
   reducers: {
-    changeDataStatus: (state, action) => {
-      if (action.payload.length > 0) {
-        state.isBlocked = true;
-        console.log(state.isBlocked);
-      } else {
-        state.isBlocked = false;
-        console.log(state.isBlocked);
-      }
-    },
-    submitForm: (state) => {
+    blockStatusFalse: (state) => {
       state.isBlocked = false;
-      console.log(state.isBlocked);
+    },
+    blockStatusTrue: (state) => {
+      state.isBlocked = true;
     },
   },
 });
 
-export const { changeDataStatus, submitForm } = isDataSaved.actions;
+export const { blockStatusFalse, blockStatusTrue } = isDataSaved.actions;
 export default isDataSaved.reducer;
