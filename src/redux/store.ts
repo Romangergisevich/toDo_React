@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counter from "./features/counter";
+import isDataSaved from "./features/isDataSaved";
 
 export const store = configureStore({
   reducer: {
     counter,
+    isDataSaved,
   },
 });
 

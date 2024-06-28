@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./styles/App.css";
 import PostList from "./components/PostList";
 import AddPostForm from "./components/AddPostForm";
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Routes, Route, Link, useNavigate, useBlocker } from "react-router-dom";
 import CompletedList from "./components/CompletedList";
 import classes from "./components/UI/buttons/DefaultButton.module.css";
 import Tests from "./components/Tests";
@@ -10,6 +10,8 @@ import Snackbar from "@mui/material/Snackbar";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
 import Alert from "@mui/material/Alert";
+import { useAppSelector } from "./hooks/tsHooks";
+import { RootState } from "./redux/store";
 
 interface NewPost {
   title: string;
@@ -19,6 +21,26 @@ interface NewPost {
 }
 
 const App: React.FC = () => {
+  //blockRouting
+
+  const isBlocked = useAppSelector((state: RootState) => state.isDataSaved);
+
+  console.log(isBlocked);
+
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      isBlocked && currentLocation.pathname !== nextLocation.pathname
+  );
+
+  useEffect(() => {
+    if (blocker.state === "blocked")
+      window.confirm(
+        "Несохраненные данные могут быть утеряны. Вы уверены что хотите покинуть страницу?"
+      )
+        ? blocker.proceed()
+        : blocker.reset();
+  }, [blocker.state]);
+
   // snackbar
 
   const [snackbar, setSnackbar] = React.useState<{
@@ -254,7 +276,7 @@ const App: React.FC = () => {
       <div className="main-head">
         <Link
           className={classes.link}
-          to="/">
+          to="*">
           ToDo
         </Link>
         <Link
@@ -279,7 +301,7 @@ const App: React.FC = () => {
           element={<AddPostForm createPost={createPost} />}
         />
         <Route
-          path="/"
+          path="*"
           element={
             <PostList
               sortFunc={sortByFunc}
