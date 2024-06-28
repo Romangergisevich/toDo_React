@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./styles/App.css";
 import PostList from "./components/PostList";
 import AddPostForm from "./components/AddPostForm";
-import { Routes, Route, Link, useNavigate, useBlocker } from "react-router-dom";
+import { Routes, Route, Link, useBlocker } from "react-router-dom";
 import CompletedList from "./components/CompletedList";
 import classes from "./components/UI/buttons/DefaultButton.module.css";
 import Tests from "./components/Tests";
@@ -12,6 +12,8 @@ import { TransitionProps } from "@mui/material/transitions";
 import Alert from "@mui/material/Alert";
 import { useAppSelector } from "./hooks/tsHooks";
 import { RootState } from "./redux/store";
+import { useAppDispatch } from "./hooks/tsHooks";
+import { blockStatusFalse } from "./redux/features/isDataSaved";
 
 interface NewPost {
   title: string;
@@ -21,24 +23,29 @@ interface NewPost {
 }
 
 const App: React.FC = () => {
+  const dispatch = useAppDispatch();
   //blockRouting
 
   const dataStatus = useAppSelector((state: RootState) => state.isDataSaved);
-
   const blocker = useBlocker(dataStatus.isBlocked);
 
   useEffect(() => {
     if (blocker.state === "blocked")
-      window.confirm(
-        "Несохраненные данные могут быть утеряны. Вы уверены что хотите покинуть страницу?"
-      )
-        ? blocker.proceed()
-        : blocker.reset();
+      if (
+        window.confirm(
+          "Несохраненные данные могут быть утеряны. Вы уверены что хотите покинуть страницу?"
+        )
+      ) {
+        dispatch(blockStatusFalse());
+        blocker.proceed();
+      } else {
+        blocker.reset();
+      }
   }, [blocker.state]);
 
   // snackbar
 
-  const [snackbar, setSnackbar] = React.useState<{
+  const [snackbar, setSnackbar] = useState<{
     open: boolean;
     text: string;
     Transition: React.ComponentType<
@@ -61,7 +68,6 @@ const App: React.FC = () => {
 
   // создание поста
 
-  let navigate = useNavigate();
   const createPost = (
     event: React.FormEvent,
     title: string,
@@ -69,7 +75,6 @@ const App: React.FC = () => {
     createDate: number
   ): void => {
     event.preventDefault();
-    navigate("/home");
     const form = event.target as HTMLFormElement;
     const newPost = {
       title: title,

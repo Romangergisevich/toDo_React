@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DefaultButton from "./UI/buttons/DefaultButton";
 import TextInput from "./UI/inputs/TextInput";
 import TextArea from "./UI/inputs/TextArea";
+import { useAppDispatch } from "../hooks/tsHooks";
+import {
+  blockStatusFalse,
+  blockStatusTrue,
+} from "../redux/features/isDataSaved";
 
 interface FunctionsProps {
   createPost: (
@@ -15,9 +20,23 @@ interface FunctionsProps {
 const AddPostForm: React.FC<FunctionsProps> = (props) => {
   const [postTitle, setPostTitle] = useState<string>("");
   const [postText, setPostText] = useState<string>("");
+  const dispatch = useAppDispatch();
+
+  const blockStatus = () => {
+    if (postTitle.length < 1 && postText.length < 1) {
+      dispatch(blockStatusFalse());
+    } else {
+      dispatch(blockStatusTrue());
+    }
+  };
+
+  useEffect(() => {
+    blockStatus();
+  }, [postTitle, postText]);
 
   const createNewPost = (event: React.FormEvent) => {
     event.preventDefault();
+    dispatch(blockStatusFalse());
     const newPostDate = Date.now();
     if (postTitle && postText)
       props.createPost(event, postTitle, postText, newPostDate);

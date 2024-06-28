@@ -5,7 +5,7 @@ export interface isDataSavedState {
 }
 
 const initialState: isDataSavedState = {
-  isBlocked: true,
+  isBlocked: false,
 };
 
 export const isDataSaved = createSlice({
