@@ -122,13 +122,13 @@ const PostItem: React.FC<PostState> = (props) => {
           {state.myParent == "ToDo" && (
             <DefaultButton
               className={"doneBtn"}
-              onClickFunc={taskIsDone}>
+              onClick={taskIsDone}>
               Done
             </DefaultButton>
           )}
           <DefaultButton
             className={"deleteBtn"}
-            onClickFunc={handleDelete}>
+            onClick={handleDelete}>
             Delete
           </DefaultButton>
           {state.myParent == "ToDo" && (
@@ -180,12 +180,12 @@ const PostItem: React.FC<PostState> = (props) => {
                 marginRight: "-5px",
               }}>
               <DefaultButton
-                onClickFunc={postEdit}
+                onClick={postEdit}
                 className="doneBtn">
                 Save
               </DefaultButton>
               <DefaultButton
-                onClickFunc={handleClose}
+                onClick={handleClose}
                 className="deleteBtn">
                 Close
               </DefaultButton>

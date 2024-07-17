@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import uuid from "react-uuid";
 
 export interface SquareArray {
   BGColor: string;
-  show: boolean;
-  delete: boolean;
+  id: string;
 }
 
 const initialState: SquareArray[] = [];
@@ -20,24 +20,16 @@ export const SquareStore = createSlice({
           ${Math.floor(Math.random() * 999)} 
           ${Math.floor(Math.random() * 999)}
           `,
-          show: true,
-          delete: false,
+          id: uuid(),
         },
         ...state,
       ];
     },
-
     deleteLastSquare: (state) => {
       return state.slice(0, -1);
-    },
-
-    toggleSquareState: (state) => {
-      state[state.length - 1].show = false;
-      state[state.length - 1].delete = true;
     },
   },
 });
 
-export const { addNewSquare, deleteLastSquare, toggleSquareState } =
-  SquareStore.actions;
+export const { addNewSquare, deleteLastSquare } = SquareStore.actions;
 export default SquareStore.reducer;

@@ -41,21 +41,40 @@ h1 {
   cursor: default;
 }
 
-.my-node-enter {
-  opacity: 0;
-  transform: translateX(-100%);
+.square__container {
+  width: 100%;
+  overflow: auto;
+  height: 60px;
+  border-radius: 6px;
+  display: flex;
+  border: 1px solid teal;
 }
 
-.my-node-enter-active {
+.squares-enter {
+  width: calc(20vw);
+  margin-left: calc(-20vw);
+  transform: translateX(0);
+  transition: all 0.3s ease;
+  height: 100%;
+  border: 1px solid teal;
+}
+.squares-enter-active {
   opacity: 1;
-  transform: translateX(0);
-  transition: opacity 300ms, transform 300ms;
+  transition: all 0.3s ease;
 }
-.my-node-exit {
-  transform: translateX(0);
+
+.squares-enter-done {
+  min-width: calc(20vw);
+  height: 100%;
+  border: 1px solid teal;
+  transition: all 0.3s ease;
 }
-.my-node-exit-active {
+
+.squares-exit {
+  opacity: 1;
+}
+.squares-exit-active {
   opacity: 0;
-  transform: translateX(100%);
-  transition: opacity 300ms, transform 300ms;
+  transform: translateX(20vw);
+  transition: all 0.3s ease-in;
 }

@@ -5,7 +5,7 @@ interface ButtonValues {
   className: string;
   ButtonType?: "submit" | "reset" | "button" | undefined;
   children?: string;
-  onClickFunc?: (e: any) => any;
+  onClick?: (e: any) => any;
 }
 
 const DefaultButton: React.FC<ButtonValues> = (props) => {
@@ -14,7 +14,7 @@ const DefaultButton: React.FC<ButtonValues> = (props) => {
   return (
     <>
       <button
-        onClick={props.onClickFunc}
+        onClick={props.onClick}
         className={classes[btnClass]}
         type={props.ButtonType ? props.ButtonType : "button"}>
         {props.children ? props.children : "Default button"}
