@@ -17,7 +17,6 @@ const Tests: React.FC = () => {
 
   const newSquare = () => {
     dispatch(addNewSquare());
-    console.log(squares);
   };
 
   const deleteSquare = () => {
@@ -48,7 +47,9 @@ const Tests: React.FC = () => {
                 key={e.id}
                 classNames="squares"
                 timeout={500}>
-                <span style={{ backgroundColor: `rgb(${e.BGColor})` }}></span>
+                <span
+                  className="squareDefault"
+                  style={{ backgroundColor: `rgb(${e.BGColor})` }}></span>
               </CSSTransition>
             );
           })}
