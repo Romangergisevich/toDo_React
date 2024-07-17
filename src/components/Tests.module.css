@@ -1,0 +1,20 @@
+.square__Parrent {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  border: 1px solid teal;
+  border-radius: 6px;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.square__Parrent::-webkit-scrollbar {
+  display: none;
+}
+
+.squqre_child {
+  min-width: calc(20vw);
+  height: 100%;
+  border: 1px solid lightseagreen;
+}
