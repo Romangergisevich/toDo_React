@@ -40,3 +40,22 @@ h1 {
   margin-top: 1.5em;
   cursor: default;
 }
+
+.my-node-enter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.my-node-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 250ms, transform 250ms;
+}
+.my-node-exit {
+  transform: translateX(0);
+}
+.my-node-exit-active {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 250ms, transform 250ms;
+}
