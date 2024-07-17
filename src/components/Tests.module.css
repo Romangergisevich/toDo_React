@@ -15,8 +15,7 @@
 
 .squqre_child {
   min-width: calc(20vw);
-  opacity: 1;
   height: 100%;
   border: 1px solid lightseagreen;
-  transition: all 0.25s;
+  transition: all 0.3s;
 }

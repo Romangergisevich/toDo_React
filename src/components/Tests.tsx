@@ -32,7 +32,7 @@ const Tests: React.FC = () => {
     setTimeout(() => {
       dispatch(deleteLastSquare());
       setColoredSquares([...squareArray]);
-    }, 250);
+    }, 300);
   };
 
   return (
@@ -55,7 +55,7 @@ const Tests: React.FC = () => {
             unmountOnExit
             in={!e.delete}
             classNames="my-node"
-            timeout={250}
+            timeout={300}
             key={index}>
             <span
               ref={squareRefs.current[index]}
