@@ -16,9 +16,9 @@ export const SquareStore = createSlice({
       return [
         {
           BGColor: `
-          ${Math.floor(Math.random() * 999)} 
-          ${Math.floor(Math.random() * 999)} 
-          ${Math.floor(Math.random() * 999)}
+          ${Math.floor(Math.random() * 255)} 
+          ${Math.floor(Math.random() * 255)} 
+          ${Math.floor(Math.random() * 255)}
           `,
           id: uuid(),
         },
