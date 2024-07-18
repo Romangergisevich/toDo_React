@@ -39,7 +39,6 @@ const Tests: React.FC = () => {
       </div>
       <div className="square__container">
         <TransitionGroup
-          exit={true}
           component={null}>
           {squares.map((e) => {
             return (
