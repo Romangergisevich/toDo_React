@@ -46,7 +46,7 @@ const Tests: React.FC = () => {
               <CSSTransition
                 key={e.id}
                 classNames="squares"
-                timeout={500}>
+                timeout={300}>
                 <span
                   className="squareDefault"
                   style={{ backgroundColor: `rgb(${e.BGColor})` }}></span>
