@@ -6,6 +6,7 @@
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
+  color: #fff;
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
@@ -13,6 +14,7 @@
   -o-transition: border-color 0.25s;
   transition: border-color 0.25s;
 }
+
 .doneBtn:hover {
   border-color: #15b05b;
   color: #15b05b;
@@ -26,6 +28,7 @@
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
+  color: #fff;
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
@@ -33,6 +36,7 @@
   -o-transition: border-color 0.25s;
   transition: border-color 0.25s;
 }
+
 .deleteBtn:hover {
   border-color: #d31414;
   color: #d31414;
@@ -45,6 +49,7 @@
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
+  color: #fff;
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
@@ -52,6 +57,7 @@
   -o-transition: border-color 0.25s;
   transition: border-color 0.25s;
 }
+
 .submitBtn:hover {
   border-color: teal;
 }
@@ -63,6 +69,7 @@
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
+  color: #fff;
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
