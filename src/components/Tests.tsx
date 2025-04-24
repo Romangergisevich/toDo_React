@@ -71,7 +71,9 @@ const Tests: React.FC = () => {
           </div>
         </div>
         :
-        <div>empty</div>
+        <div>
+          empty
+        </div>
       }
     </>
   );
